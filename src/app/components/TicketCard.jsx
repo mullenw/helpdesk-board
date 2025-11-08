@@ -14,3 +14,17 @@ export default function TicketCard({ ticket, isQueued, onAdd }) {
         <p>Assignee: {assignee}</p>
         <p>Updated: {date}</p>
       </div>
+    
+     <button
+        onClick={onAdd}
+        disabled={isQueued}
+        className={`mt-3 w-full py-2 rounded-xl text-sm font-medium
+        ${isQueued
+          ? 'bg-gray-600 cursor-not-allowed'
+          : 'bg-blue-600 hover:bg-blue-700 text-white'}`}
+      >
+        {isQueued ? 'Added to My Queue' : 'Add to My Queue'}
+      </button>
+    </div>
+  );
+}
