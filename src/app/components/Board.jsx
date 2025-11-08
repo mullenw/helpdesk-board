@@ -32,3 +32,23 @@ export default function Board() {
     }
     load();
   }, []);
+
+    useEffect(() => {
+    const interval = setInterval(() => {
+      setTickets(prev => {
+        if (prev.length === 0) return prev;
+        const copy = [...prev];
+        const random = Math.floor(Math.random() * copy.length);
+        const t = copy[random];
+        const updated = {
+          ...t,
+          status: nextStatus[t.status] || t.status,
+          priority: nextPriority[t.priority] || t.priority,
+          updatedAt: new Date().toISOString()
+        };
+        copy[random] = updated;
+        return copy;
+      });
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
