@@ -100,3 +100,13 @@ export default function Board() {
           onClear={clearQueue}
         />
       </div>
+
+      <div className="lg:col-span-3">
+        <StatusMessage loading={loading} error={error} isEmpty={isEmpty} />
+        {!loading && !error && visibleTickets.length > 0 && (
+          <TicketList tickets={visibleTickets} queue={queue} onAdd={addToQueue} />
+        )}
+      </div>
+    </div>
+  );
+}
