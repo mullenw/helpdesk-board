@@ -16,4 +16,20 @@ export default function MyQueueSummary({ tickets, queue, onRemove, onClear }) {
               <button
                 onClick={() => onRemove(t.id)}
                 className="text-xs px-2 py-1 bg-gray-700 rounded-lg hover:bg-gray-600"
-              ></button>
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <button
+        onClick={onClear}
+        disabled={queued.length === 0}
+        className="mt-3 w-full bg-blue-600 text-white py-2 rounded-xl disabled:bg-gray-700 hover:bg-blue-700"
+      >
+        Clear Queue
+      </button>
+    </div>
+  );
+}
