@@ -15,3 +15,20 @@ export default function Board() {
   const [filters, setFilters] = useState({ status: 'All', priority: 'All' });
   const [search, setSearch] = useState('');
   const [queue, setQueue] = useState({});
+
+    useEffect(() => {
+    async function load() {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/tickets');
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        setTickets(data);
+      } catch (err) {
+        setError('Unable to load tickets');
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
