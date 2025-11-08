@@ -76,4 +76,27 @@ export default function Board() {
 
   const isEmpty = !loading && !error && visibleTickets.length === 0;
 
-  
+  return (
+    <div className="grid lg:grid-cols-4 gap-6 text-white">
+
+      <div className="lg:col-span-1 space-y-4">
+        <div className="p-4 rounded-2xl bg-gray-800 border border-gray-700">
+          <h2 className="font-semibold mb-3">Filters</h2>
+          <StatusFilter
+            value={filters.status}
+            onChange={val => setFilters(f => ({ ...f, status: val }))}
+          />
+          <PriorityFilter
+            value={filters.priority}
+            onChange={val => setFilters(f => ({ ...f, priority: val }))}
+          />
+          <SearchBox value={search} onChange={setSearch} />
+        </div>
+
+        <MyQueueSummary
+          tickets={tickets}
+          queue={queue}
+          onRemove={removeFromQueue}
+          onClear={clearQueue}
+        />
+      </div>
