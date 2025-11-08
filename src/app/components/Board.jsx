@@ -52,3 +52,28 @@ export default function Board() {
     }, 8000);
     return () => clearInterval(interval);
   }, []);
+
+  const visibleTickets = useMemo(() => {
+    const q = search.toLowerCase();
+    return tickets.filter(t => {
+      const matchesStatus = filters.status === 'All' || t.status === filters.status;
+      const matchesPriority = filters.priority === 'All' || t.priority === filters.priority;
+      const matchesSearch =
+        q === '' ||
+        t.title.toLowerCase().includes(q) ||
+        t.description.toLowerCase().includes(q);
+      return matchesStatus && matchesPriority && matchesSearch;
+    });
+  }, [tickets, filters, search]);
+
+  const addToQueue = id => setQueue(prev => ({ ...prev, [id]: true }));
+  const removeFromQueue = id => {
+    const copy = { ...queue };
+    delete copy[id];
+    setQueue(copy);
+  };
+  const clearQueue = () => setQueue({});
+
+  const isEmpty = !loading && !error && visibleTickets.length === 0;
+
+  
